@@ -3,8 +3,9 @@ var dayEl = document.getElementById("currentDay")
 dayEl.innerHTML = day
 
 var hour = moment().format("HH")
-console.log(hour)
+hourKeep = hour
 hourRel = hour - 10
+function setColor(){
 for(i=9;i<18;i++){
     if(i<hourRel){
     $("#"+i).addClass("past")
@@ -16,5 +17,22 @@ for(i=9;i<18;i++){
     $("#"+i).addClass("present")
     }
 }
+}
+setColor()
+function clearColor(){
+    for(i=9;i<18;i++){
+        $("#"+i).removeClass("past")
+        $("#"+i).removeClass("present")
+        $("#"+i).removeClass("future")
+    }
+}
+var changeTime = setInterval(function() {  
+    clearColor()
+    setColor()
+    console.log("count")
+}, 60000)
+
+
+
 
 
