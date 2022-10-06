@@ -3,17 +3,15 @@ var dayEl = document.getElementById("currentDay")
 dayEl.innerHTML = day
 
 var hour = moment().format("HH")
-hourKeep = hour
-hourRel = hour - 10
 function setColor(){
 for(i=9;i<18;i++){
-    if(i<hourRel){
+    if(i<hour){
     $("#"+i).addClass("past")
     }
-    if(i>hourRel){
+    if(i>hour){
         $("#"+i).addClass("future")
     }
-    if(i==hourRel){
+    if(i==hour){
     $("#"+i).addClass("present")
     }
 }
@@ -29,10 +27,24 @@ function clearColor(){
 var changeTime = setInterval(function() {  
     clearColor()
     setColor()
-    console.log("count")
 }, 60000)
 
+function popCal(){
+    for (i=9;i<18;i++){
+    var content = localStorage.getItem("save"+i)
+    $('#'+i).text(content)
+    }
+}
+popCal()
+function saveItem(event){
+saveContent = $(event.target).parent().parent().children().eq(1).val()
+conector = $(event.target).parent().parent().children().eq(1).attr("id")
+localStorage.setItem("save"+conector,saveContent)
+}
 
+for (i=9;i<18;i++){
+    $("#btn"+i).on("click", saveItem)
+    }
 
 
 
